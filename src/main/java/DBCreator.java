@@ -12,7 +12,7 @@ import java.sql.*;
 
 public class DBCreator {
 
-  private Connection conn = null;
+  private Connection conn;
 
   private static final String SQL_INSERT = "INSERT INTO FL_INSURANCE (${keys}) VALUES(${values})";
   private static final String KEYS_REGEX = "\\$\\{keys\\}";
@@ -122,8 +122,9 @@ public class DBCreator {
     conn.setAutoCommit(autoCommit);
     PreparedStatement ps = conn.prepareStatement(query);
 
-    final int batchSize = 1000; //set the batch size for batchInBatch to 1000 rows per batch
+    int batchSize = 1000; //set the batch size for batchInBatch to 1000 rows per batch
     int count = 0;
+
     while((row = csvreader.readNext()) != null) {
       int index = 1;
       for(String value : row) {
@@ -159,48 +160,26 @@ public class DBCreator {
    * @throws SQLException
    */
   public void selectRows() throws SQLException {
-    String statecode, county, line, construction;
-    long  id, eq_site_limit, hu_site_limit, fl_site_limit, fr_site_limit,
-        tiv_2011, tiv_2012, eq_site_deductible, hu_site_deductible,
-        fl_site_deductible, fr_site_deductible, point_latitude,
-        point_longitude, point_granularity;
+
     String query = "SELECT * FROM FL_INSURANCE";
     conn.setAutoCommit(true);
     try {
       PreparedStatement ps = conn.prepareStatement(query);
       ResultSet rs = ps.executeQuery();
+      int columnCount = rs.getMetaData().getColumnCount();
+      String border = StringUtils.repeat("_", 10 * columnCount);
       System.out.println("\nPrinting first 10 rows of the table . . . .\n");
-      System.out.println("_______________________________________________________________________" +
-          "_____________________________________________________");
+      System.out.println(border);
       for(int i = 0; i < 10; i++) {
         rs.next();
-        id = rs.getLong("policyID");
-        statecode = rs.getString("statecode");
-        county = rs.getString("county");
-        eq_site_limit = rs.getLong("eq_site_limit");
-        hu_site_limit = rs.getLong("hu_site_limit");
-        fl_site_limit = rs.getLong("fl_site_limit");
-        fr_site_limit = rs.getLong("fr_site_limit");
-        tiv_2011 = rs.getLong("tiv_2011");
-        tiv_2012 = rs.getLong("tiv_2012");
-        eq_site_deductible = rs.getLong("eq_site_deductible");
-        hu_site_deductible = rs.getLong("hu_site_deductible");
-        fl_site_deductible = rs.getLong("fl_site_deductible");
-        fr_site_deductible = rs.getLong("fr_site_deductible");
-        point_latitude = rs.getLong("point_latitude");
-        point_longitude = rs.getLong("point_longitude");
-        point_granularity = rs.getInt("point_granularity");
-
-        System.out.println("|" + id + " | " + statecode + " | " + county
-            + " | " + eq_site_limit + " | " + hu_site_limit + " | " + fl_site_limit
-            + " | " + fr_site_limit + " | " + tiv_2011 + " | " + tiv_2012
-            + " | " + eq_site_deductible + " | " + hu_site_deductible + " | " + fl_site_deductible
-            + " | " + fr_site_deductible + " | " + point_latitude + " | " + point_longitude +
-            " | " + point_granularity + "|");
-
+        String rows = "";
+        for(int j = 1; j < columnCount + 1; j++) {
+          rows += rs.getString(j) + " | ";
+        }
+        System.out.println(rows);
       }
-      System.out.println("_______________________________________________________________________" +
-          "_____________________________________________________\n");
+      System.out.println(border + "\n");
+      ps.close();
     } catch (SQLException e) {
       e.printStackTrace();
     }

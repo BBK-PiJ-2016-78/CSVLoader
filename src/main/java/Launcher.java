@@ -12,7 +12,7 @@ public class Launcher {
     DBCreator creator = new DBCreator(conn);
     Launcher launcher = new Launcher();
 
-    String data = null;
+    String data;
     try {
       creator.createTable();
       data = launcher.menu(creator);
@@ -33,7 +33,7 @@ public class Launcher {
    */
   public String menu(DBCreator creator) throws Exception {
 
-    String data = null;
+    String data;
     Scanner sc = new Scanner(System.in);
 
     System.out.println(" ________________________________________________________________");

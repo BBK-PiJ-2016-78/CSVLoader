@@ -8,7 +8,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DBConnector {
+public final class DBConnector {
   private static String driver = "org.apache.derby.jdbc.EmbeddedDriver";
   private static String dbName = "FL_INSURANCE";
   private static String connectionURL = "jdbc:derby:" + dbName + ";create=true";
@@ -18,7 +18,7 @@ public class DBConnector {
    * @return a Monitored connection using Jamon Monitor, to get statistics log.
    */
   public static Connection connect() {
-    Connection conn = null;
+    Connection conn;
     Connection monConn = null;
     try {
       Class.forName(driver);
