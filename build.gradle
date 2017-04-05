@@ -17,8 +17,6 @@ dependencies {
     compile group: 'com.jamonapi', name: 'jamon', version: '2.81'
     // https://mvnrepository.com/artifact/com.opencsv/opencsv
     compile group: 'com.opencsv', name: 'opencsv', version: '3.9'
-    // https://mvnrepository.com/artifact/com.fdsapi/fdsapi
-    compile group: 'com.fdsapi', name: 'fdsapi', version: '1.0.4'
     // https://mvnrepository.com/artifact/org.apache.derby/derby
     compile group: 'org.apache.derby', name: 'derby', version: '10.13.1.1'
 
