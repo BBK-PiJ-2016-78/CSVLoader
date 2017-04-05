@@ -1,0 +1,23 @@
+group 'hradev'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+
+sourceCompatibility = 1.5
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    // https://mvnrepository.com/artifact/com.jamonapi/jamon
+    compile group: 'com.jamonapi', name: 'jamon', version: '2.81'
+    // https://mvnrepository.com/artifact/com.opencsv/opencsv
+    compile group: 'com.opencsv', name: 'opencsv', version: '3.9'
+    // https://mvnrepository.com/artifact/com.fdsapi/fdsapi
+    compile group: 'com.fdsapi', name: 'fdsapi', version: '1.0.4'
+
+
+}
