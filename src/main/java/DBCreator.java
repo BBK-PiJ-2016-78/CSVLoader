@@ -127,23 +127,23 @@ public class DBCreator {
     while((row = csvreader.readNext()) != null) {
       int index = 1;
       for(String value : row) {
-        ps.setString(index++, value);
+        ps.setString(index++, value); //replace the ?'s with the rows values from the file
       }
       if(eachRow) {
-        ps.executeUpdate();
+        ps.executeUpdate(); //execute each insert statement
       } else if(singleBatch && !autoCommit) {
-        ps.addBatch();
+        ps.addBatch(); //add statements to execute in batch
       } else if(batchInBatch && !autoCommit) {
         ps.addBatch();
         if (++count % batchSize == 0) {
-          ps.executeBatch();
+          ps.executeBatch(); //execute the current batch size
         }
       }
     }
     if(eachRow && !autoCommit)
-      conn.commit();
+      conn.commit(); //commit as a unit
     else if(!autoCommit) {
-      ps.executeBatch(); //insert the remaining rows
+      ps.executeBatch(); //insert the remaining rows (all of the for single batch)
       conn.commit();
     }
     //get the Monitor report data as a 2D Object array

@@ -17,14 +17,20 @@ public class Launcher {
       creator.createTable();
       data = launcher.menu(creator);
       creator.selectRows();
-      exportHTML.writeData(data);
-      exportHTML.openHTML();
+      ExportHTML.writeData(data);
+      ExportHTML.openHTML();
       conn.close();
     } catch (Exception e) {
       e.printStackTrace();
     }
   }
 
+  /**
+   * Creates a console menu with the 4 data loading options
+   * @param creator
+   * @return the data to be written in the HTML file.
+   * @throws Exception
+   */
   public String menu(DBCreator creator) throws Exception {
 
     String data = null;
@@ -38,9 +44,9 @@ public class Launcher {
     System.out.println("| 4. Load it in multiple batches of 1000 size                    |");
     System.out.println("|________________________________________________________________|");
     System.out.print("Enter choice: ");
-    int choice = sc.nextInt();
+    int option = sc.nextInt();
 
-    switch(choice) {
+    switch(option) {
       case 1: data = creator.loadCSV(true, false, false, true);
               break;
       case 2: data = creator.loadCSV(true, false, false, false);
