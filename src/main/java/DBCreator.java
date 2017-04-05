@@ -60,12 +60,12 @@ public class DBCreator {
           System.out.println("Table FL_INSURANCE exists!");
           System.out.println("Truncating table . . .");
           PreparedStatement del = conn.prepareStatement("TRUNCATE TABLE FL_INSURANCE");
-          del.executeUpdate();
+          del.execute();
           del.close();
         }
       } else {
         System.out.println (" . . . . creating table FL_INSURANCE");
-        preparedStm.executeUpdate();
+        preparedStm.execute();
       }
       result.close();
     } catch (SQLException e) {

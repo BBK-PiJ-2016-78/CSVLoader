@@ -35,7 +35,12 @@ td {
 	border: 1px solid #abcde5;
 	text-align: left;
 	padding: 8px;
-	overflow:hidden;
+	overflow:scroll;
+}
+
+td:nth-child(2) {
+	width: 95%;
+	float:left;
 }
 
 td:nth-child(1), td:nth-child(6), td:nth-child(7), td:nth-child(10),
