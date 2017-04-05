@@ -4,7 +4,8 @@ version '1.0-SNAPSHOT'
 apply plugin: 'java'
 apply plugin: 'idea'
 
-sourceCompatibility = 1.5
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
@@ -18,6 +19,8 @@ dependencies {
     compile group: 'com.opencsv', name: 'opencsv', version: '3.9'
     // https://mvnrepository.com/artifact/com.fdsapi/fdsapi
     compile group: 'com.fdsapi', name: 'fdsapi', version: '1.0.4'
+    // https://mvnrepository.com/artifact/org.apache.derby/derby
+    compile group: 'org.apache.derby', name: 'derby', version: '10.13.1.1'
 
 
 }
