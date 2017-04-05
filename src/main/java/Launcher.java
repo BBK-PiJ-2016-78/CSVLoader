@@ -10,10 +10,13 @@ public class Launcher {
     Connection conn = DBConnector.connect();
     DBCreator creator = new DBCreator(conn);
 
-    Object[][] data = null;
+    String data = null;
     try {
       creator.createTable();
-      data  = creator.loadCSV(false, false, true, false);
+      data = creator.loadCSV(false, false, true, false);
+      creator.selectRows();
+      //exportHTML.writeData(data);
+      exportHTML.openHTML();
       conn.close();
     } catch (Exception e) {
       e.printStackTrace();

@@ -87,7 +87,7 @@ public class DBCreator {
    * @return Returns the Object data from the Monitor report.
    * @throws Exception
    */
-  public Object[][] loadCSV(boolean eachRow, boolean singleBatch,
+  public String loadCSV(boolean eachRow, boolean singleBatch,
                             boolean batchInBatch, boolean autoCommit) throws Exception {
     CSVReader csvreader = null;
     String filePath = ".\\src\\main\\resources\\FL_insurance_sample.csv";
@@ -147,14 +147,18 @@ public class DBCreator {
       conn.commit();
     }
     //get the Monitor report data as a 2D Object array
-    Object[][] data = MonitorFactory.getRootMonitor().getData();
+    String data = MonitorFactory.getReport();
     ps.close();
     csvreader.close();
 
     return data;
   }
 
-  public void selectRows(Connection conn) throws SQLException {
+  /**
+   * Used for testing purposes. Prints the first 10 rows in the created table.
+   * @throws SQLException
+   */
+  public void selectRows() throws SQLException {
     String statecode, county, line, construction;
     long  id, eq_site_limit, hu_site_limit, fl_site_limit, fr_site_limit,
         tiv_2011, tiv_2012, eq_site_deductible, hu_site_deductible,
