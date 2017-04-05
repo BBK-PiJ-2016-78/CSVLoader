@@ -14,6 +14,7 @@ public class exportHTML {
     FileWriter fWriter = null;
     BufferedWriter writer = null;
     try {
+      System.out.println("Writing Report HTML file . . . . ");
       fWriter = new FileWriter(".\\src\\main\\resources\\Report.html");
       writer = new BufferedWriter(fWriter);
       writer.write(data);
@@ -26,6 +27,7 @@ public class exportHTML {
   public static void openHTML() {
     File htmlFile = new File("D:\\Uni 2016\\CSVLoader\\src\\main\\resources\\Report.html");
     try {
+      System.out.println("Opening Report file . . . .");
       Desktop.getDesktop().browse(htmlFile.toURI());
     } catch (IOException e) {
       e.printStackTrace();

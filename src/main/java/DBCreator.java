@@ -155,7 +155,7 @@ public class DBCreator {
   }
 
   /**
-   * Used for testing purposes. Prints the first 10 rows in the created table.
+   * Used for testing purposes. Prints the first 10 rows from the database.
    * @throws SQLException
    */
   public void selectRows() throws SQLException {
@@ -169,13 +169,38 @@ public class DBCreator {
     try {
       PreparedStatement ps = conn.prepareStatement(query);
       ResultSet rs = ps.executeQuery();
+      System.out.println("\nPrinting first 10 rows of the table . . . .\n");
+      System.out.println("_______________________________________________________________________" +
+          "_____________________________________________________");
       for(int i = 0; i < 10; i++) {
         rs.next();
         id = rs.getLong("policyID");
         statecode = rs.getString("statecode");
         county = rs.getString("county");
-        System.out.println(id + " | " + statecode + " | " + county);
+        eq_site_limit = rs.getLong("eq_site_limit");
+        hu_site_limit = rs.getLong("hu_site_limit");
+        fl_site_limit = rs.getLong("fl_site_limit");
+        fr_site_limit = rs.getLong("fr_site_limit");
+        tiv_2011 = rs.getLong("tiv_2011");
+        tiv_2012 = rs.getLong("tiv_2012");
+        eq_site_deductible = rs.getLong("eq_site_deductible");
+        hu_site_deductible = rs.getLong("hu_site_deductible");
+        fl_site_deductible = rs.getLong("fl_site_deductible");
+        fr_site_deductible = rs.getLong("fr_site_deductible");
+        point_latitude = rs.getLong("point_latitude");
+        point_longitude = rs.getLong("point_longitude");
+        point_granularity = rs.getInt("point_granularity");
+
+        System.out.println("|" + id + " | " + statecode + " | " + county
+            + " | " + eq_site_limit + " | " + hu_site_limit + " | " + fl_site_limit
+            + " | " + fr_site_limit + " | " + tiv_2011 + " | " + tiv_2012
+            + " | " + eq_site_deductible + " | " + hu_site_deductible + " | " + fl_site_deductible
+            + " | " + fr_site_deductible + " | " + point_latitude + " | " + point_longitude +
+            " | " + point_granularity + "|");
+
       }
+      System.out.println("_______________________________________________________________________" +
+          "_____________________________________________________\n");
     } catch (SQLException e) {
       e.printStackTrace();
     }
