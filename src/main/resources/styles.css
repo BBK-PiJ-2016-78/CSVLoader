@@ -1,0 +1,51 @@
+body {
+	background-color:  #ebf4fb  ;
+	color:  #6c6c6c  ;
+}
+h2 {
+	font-family: "Times New Roman", Times, serif;
+	font-size: 200%;
+	color:   #2a2393  ;
+}
+table {
+	table-layout: fixed;
+	font-family: Verdana, sans-serif;
+	font-weight: bold;
+	font-size: 80%;		
+	border-collapse: collapse;
+	width: 100%;
+}
+
+th {
+	background-color:  #2278b3;
+	color: white;
+	border: 1px solid #abcde5;
+	text-align: center;
+	font-size: 100%;
+	padding: 8px;	
+}
+
+th:nth-child(1), th:nth-child(6), th:nth-child(7), th:nth-child(10),
+th:nth-child(11), th:nth-child(12), th:nth-child(13), th:nth-child(14),
+th:nth-child(15), th:nth-child(16), th:nth-child(17), th:nth-child(18)		{
+	display:none;
+}
+
+td {
+	border: 1px solid #abcde5;
+	text-align: left;
+	padding: 8px;
+	overflow:hidden;
+}
+
+td:nth-child(1), td:nth-child(6), td:nth-child(7), td:nth-child(10),
+td:nth-child(11), td:nth-child(12), td:nth-child(13), td:nth-child(14),
+td:nth-child(15), td:nth-child(16), td:nth-child(17), td:nth-child(18) {
+	display:none;
+}
+
+tr:nth-child(even) {
+	background-color: #e5ecf0;			
+}
+
+tr:hover{background-color:   #cdd9e1 }

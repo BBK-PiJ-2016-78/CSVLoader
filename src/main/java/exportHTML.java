@@ -17,14 +17,19 @@ public class ExportHTML {
   public static void writeData(String data) {
     FileWriter fWriter = null;
     BufferedWriter writer = null;
+    String startTags = "<html lang=\"en\">\n" + "<head>\n" + "<meta charset=\"UTF-8\">\n" +
+        "    <h2 align='center'>Database Monitor Results</h2>\n" +
+        "\t<link rel=\"stylesheet\" href=\"styles.css\">\n" + "</head>\n" + "<body>\n" + "\t<div>";
+    String endTags = "</div>\n" + "</body>\n" + "</html>";
+    String finalHTML = startTags + data + endTags;
     try {
       System.out.println("Writing Report HTML file . . . . ");
       fWriter = new FileWriter(".\\src\\main\\resources\\Report.html");
       writer = new BufferedWriter(fWriter);
-      writer.write(data);
+      writer.write(finalHTML);
       writer.close();
     } catch (Exception e) {
-      //catch any exceptions here
+      e.printStackTrace();
     }
   }
 
