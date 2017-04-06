@@ -1,7 +1,3 @@
-/**
- * Created by hradev01 on 05-Apr-17.
- */
-
 import com.jamonapi.proxy.MonProxyFactory;
 
 import java.sql.Connection;
@@ -9,9 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public final class DBConnector {
-  private static String driver = "org.apache.derby.jdbc.EmbeddedDriver";
-  private static String dbName = "FL_INSURANCE";
-  private static String connectionURL = "jdbc:derby:" + dbName + ";create=true";
+  private static final String driver = "org.apache.derby.jdbc.EmbeddedDriver";
+  private static final String dbName = "FL_INSURANCE";
+  private static final String connectionURL = "jdbc:derby:" + dbName + ";create=true";
 
   /**
    * Creates a connection to the embedded database using the JDBC EmbeddedDriver.

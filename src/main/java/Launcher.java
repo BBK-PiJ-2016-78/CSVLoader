@@ -1,7 +1,3 @@
-/**
- * Created by hradev01 on 05-Apr-17.
- */
-
 import java.sql.Connection;
 import java.util.Scanner;
 
@@ -27,26 +23,26 @@ public class Launcher {
 
   /**
    * Creates a console menu with the 4 data loading options
-   * @param creator
+   * @param creator the DBCreator instance.
    * @return the data to be written in the HTML file.
-   * @throws Exception
+   * @throws Exception if loadCSV fails.
    */
-  public String menu(DBCreator creator) throws Exception {
+  private String menu(DBCreator creator) throws Exception {
 
     String data;
     Scanner sc = new Scanner(System.in);
 
-    System.out.println(" ________________________________________________________________");
-    System.out.println("| To load the CSV file into database choose option:              |");
-    System.out.println("| 1. Load it row by row with commiting separate INSERT statements|");
-    System.out.println("| 2. Load it row by row but commit as a unit                     |");
-    System.out.println("| 3. Load it in a single batch unit                              |");
-    System.out.println("| 4. Load it in multiple batches of 1000 size                    |");
-    System.out.println("|________________________________________________________________|");
+    System.out.println(" _________________________________________________________________");
+    System.out.println("| To load the CSV file into database choose option:               |");
+    System.out.println("| 1. Load it row by row with committing separate INSERT statements|");
+    System.out.println("| 2. Load it row by row but commit as a unit                      |");
+    System.out.println("| 3. Load it in a single batch unit                               |");
+    System.out.println("| 4. Load it in multiple batches of 1000 size                     |");
+    System.out.println("|_________________________________________________________________|");
     System.out.print("Enter choice: ");
     int option = sc.nextInt();
 
-    switch(option) {
+    switch (option) {
       case 1: data = creator.loadCSV(true, false, false, true);
               break;
       case 2: data = creator.loadCSV(true, false, false, false);

@@ -1,25 +1,21 @@
-import java.awt.*;
+import java.awt.Desktop;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-/**
- * Created by hradev01 on 05-Apr-17.
- */
-
 public class ExportHTML {
 
   /**
    * Get the report taken from the monitored connection and write it in HTML file.
-   * @param data
+   * @param data the data to be written in the html.
    */
   public static void writeData(String data) {
-    FileWriter fWriter = null;
-    BufferedWriter writer = null;
-    String startTags = "<html lang=\"en\">\n" + "<head>\n" + "<meta charset=\"UTF-8\">\n" +
-        "    <h2 align='center'>Database Monitor Results</h2>\n" +
-        "\t<link rel=\"stylesheet\" href=\"styles.css\">\n" + "</head>\n" + "<body>\n" + "\t<div>";
+    FileWriter fWriter;
+    BufferedWriter writer;
+    String startTags = "<html lang=\"en\">\n" + "<head>\n" + "<meta charset=\"UTF-8\">\n"
+        +   "    <h2 align='center'>Database Monitor Results</h2>\n"
+        +  "\t<link rel=\"stylesheet\" href=\"styles.css\">\n" + "</head>\n" + "<body>\n" + "\t<div>";
     String endTags = "</div>\n" + "</body>\n" + "</html>";
     String finalHTML = startTags + data + endTags;
     try {

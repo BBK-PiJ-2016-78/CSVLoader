@@ -1,7 +1,3 @@
-/**
- * Created by hradev01 on 05-Apr-17.
- */
-
 import com.jamonapi.MonitorFactory;
 import com.opencsv.CSVReader;
 import org.apache.commons.lang3.StringUtils;
@@ -12,7 +8,7 @@ import java.sql.*;
 
 public class DBCreator {
 
-  private Connection conn;
+  private final Connection conn;
 
   private static final String SQL_INSERT = "INSERT INTO FL_INSURANCE (${keys}) VALUES(${values})";
   private static final String KEYS_REGEX = "\\$\\{keys\\}";
@@ -24,13 +20,14 @@ public class DBCreator {
 
   /**
    * Creates a table in the database with the given schema. If table exists truncate it.
-   * @throws SQLException
+   *
+   * @throws SQLException if creating the table fails.
    */
   public void createTable() throws SQLException {
 
     String createString = "CREATE TABLE FL_INSURANCE  "
         + "(policyID INT NOT NULL"
-        +  "   CONSTRAINT policyID PRIMARY KEY, "
+        + "   CONSTRAINT policyID PRIMARY KEY, "
         + "statecode VARCHAR(32) NOT NULL, "
         + "county VARCHAR(32) NOT NULL, "
         + "eq_site_limit FLOAT NOT NULL, "
@@ -55,8 +52,8 @@ public class DBCreator {
       preparedStm = conn.prepareStatement(createString);
       DatabaseMetaData meta = conn.getMetaData();
       ResultSet result = meta.getTables(null, null, "FL_INSURANCE", null);
-      if(result.next()) {
-        if(result.getString(3).equals("FL_INSURANCE")) {
+      if (result.next()) {
+        if (result.getString(3).equals("FL_INSURANCE")) {
           System.out.println("Table FL_INSURANCE exists!");
           System.out.println("Truncating table . . .");
           PreparedStatement del = conn.prepareStatement("TRUNCATE TABLE FL_INSURANCE");
@@ -64,14 +61,14 @@ public class DBCreator {
           del.close();
         }
       } else {
-        System.out.println (" . . . . creating table FL_INSURANCE");
+        System.out.println(" . . . . creating table FL_INSURANCE");
         preparedStm.execute();
       }
       result.close();
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
-      if(preparedStm != null) {
+      if (preparedStm != null) {
         preparedStm.close();
       }
     }
@@ -80,15 +77,16 @@ public class DBCreator {
   /**
    * Loads the CSV file into the database with prepared INSERT statements, with 4 different
    * performance options: 1/2) row by row as unit or without; 3) batch add; 4) batch in batch.
-   * @param eachRow ff set True then row by row INSERT is used.
-   * @param singleBatch if set to true single batch commit is used.
+   *
+   * @param eachRow      ff set True then row by row INSERT is used.
+   * @param singleBatch  if set to true single batch commit is used.
    * @param batchInBatch if set to true batch within batch is used.
-   * @param autoCommit set on/off autocommit (true only with eachRow).
+   * @param autoCommit   set on/off autocommit (true only with eachRow).
    * @return Returns the Object data from the Monitor report.
-   * @throws Exception
+   * @throws Exception if reading the file fails.
    */
   public String loadCSV(boolean eachRow, boolean singleBatch,
-                            boolean batchInBatch, boolean autoCommit) throws Exception {
+                        boolean batchInBatch, boolean autoCommit) throws Exception {
     CSVReader csvreader = null;
     String filePath = ".\\src\\main\\resources\\FL_insurance_sample.csv";
 
@@ -104,8 +102,7 @@ public class DBCreator {
       headerRow = csvreader.readNext();
       if (headerRow == null) {
         throw new FileNotFoundException(
-            "No columns defined in given CSV file." +
-                "Please check the CSV file format.");
+            "No columns defined in given CSV file." + "Please check the CSV file format.");
       }
     }
     //Create as many ?'s as the columns in the table.
@@ -125,25 +122,25 @@ public class DBCreator {
     int batchSize = 1000; //set the batch size for batchInBatch to 1000 rows per batch
     int count = 0;
 
-    while((row = csvreader.readNext()) != null) {
+    while ((row = csvreader.readNext()) != null) {
       int index = 1;
-      for(String value : row) {
+      for (String value : row) {
         ps.setString(index++, value); //replace the ?'s with the rows values from the file
       }
-      if(eachRow) {
+      if (eachRow) {
         ps.executeUpdate(); //execute each insert statement
-      } else if(singleBatch && !autoCommit) {
+      } else if (singleBatch && !autoCommit) {
         ps.addBatch(); //add statements to execute in batch
-      } else if(batchInBatch && !autoCommit) {
+      } else if (batchInBatch && !autoCommit) {
         ps.addBatch();
         if (++count % batchSize == 0) {
           ps.executeBatch(); //execute the current batch size
         }
       }
     }
-    if(eachRow && !autoCommit)
+    if (eachRow && !autoCommit) {
       conn.commit(); //commit as a unit
-    else if(!autoCommit) {
+    } else if (!autoCommit) {
       ps.executeBatch(); //insert the remaining rows (all of the for single batch)
       conn.commit();
     }
@@ -157,7 +154,8 @@ public class DBCreator {
 
   /**
    * Used for testing purposes. Prints the first 10 rows from the database.
-   * @throws SQLException
+   *
+   * @throws SQLException if selecting the rows fails.
    */
   public void selectRows() throws SQLException {
 
@@ -170,10 +168,10 @@ public class DBCreator {
       String border = StringUtils.repeat("_", 10 * columnCount);
       System.out.println("\nPrinting first 10 rows of the table . . . .\n");
       System.out.println(border);
-      for(int i = 0; i < 10; i++) {
+      for (int i = 0; i < 10; i++) {
         rs.next();
         String rows = "";
-        for(int j = 1; j < columnCount + 1; j++) {
+        for (int j = 1; j < columnCount + 1; j++) {
           rows += rs.getString(j) + " | ";
         }
         System.out.println(rows);
