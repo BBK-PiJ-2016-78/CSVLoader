@@ -3,7 +3,8 @@ import com.opencsv.CSVReader;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.*;
 
 public class DBCreator {
@@ -87,15 +88,13 @@ public class DBCreator {
    */
   public String loadCSV(boolean eachRow, boolean singleBatch,
                         boolean batchInBatch, boolean autoCommit) throws Exception {
-    CSVReader csvreader = null;
-    String filePath = ".\\src\\main\\resources\\FL_insurance_sample.csv";
+    CSVReader csvreader;
+    String filePath = "FL_insurance_sample.csv";
+    //open the file from within the jar as inout stream.
+    InputStream is = getClass().getResourceAsStream(filePath);
 
-    //open and parse the CSV file.
-    try {
-      csvreader = new CSVReader(new FileReader(filePath));
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    }
+    //open and parse the CSV file using the inout stream from jar.
+    csvreader = new CSVReader(new InputStreamReader(is));
     //check if file exists by reading the header line.
     String[] headerRow = null;
     if (csvreader != null) {

@@ -7,14 +7,15 @@ public class Launcher {
     Connection conn = DBConnector.connect();
     DBCreator creator = new DBCreator(conn);
     Launcher launcher = new Launcher();
+    ExportHTML html = new ExportHTML();
 
     String data;
     try {
       creator.createTable();
       data = launcher.menu(creator);
       creator.selectRows();
-      ExportHTML.writeData(data);
-      ExportHTML.openHTML();
+      html.writeData(data);
+      html.openHTML();
       conn.close();
     } catch (Exception e) {
       e.printStackTrace();

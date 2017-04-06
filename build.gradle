@@ -7,6 +7,24 @@ apply plugin: 'idea'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+jar {
+    from('src/main/resources') {
+        include  '.csv'
+        include  '.css'
+    }
+}
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'CSVLoader',
+                'Implementation-Version': version,
+                'Main-Class': 'Launcher'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
 repositories {
     mavenCentral()
 }
@@ -19,6 +37,7 @@ dependencies {
     compile group: 'com.opencsv', name: 'opencsv', version: '3.9'
     // https://mvnrepository.com/artifact/org.apache.derby/derby
     compile group: 'org.apache.derby', name: 'derby', version: '10.13.1.1'
-
+    // https://mvnrepository.com/artifact/commons-io/commons-io
+    compile group: 'commons-io', name: 'commons-io', version: '2.4'
 
 }
