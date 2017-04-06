@@ -25,7 +25,7 @@ public class ExportHTML {
     String finalHTML = startTags + data + endTags;
     try {
       System.out.println("Writing Report HTML file . . . . ");
-      fWriter = new FileWriter(".\\Report.html");
+      fWriter = new FileWriter("Report.html");
       writer = new BufferedWriter(fWriter);
       writer.write(finalHTML);
       writer.close();
@@ -54,7 +54,7 @@ public class ExportHTML {
    */
   public void copyStyle() {
     InputStream is = getClass().getResourceAsStream("styles.css");
-    File out = new File(".\\styles.css");
+    File out = new File("styles.css");
     try {
       FileUtils.copyInputStreamToFile(is, out);
     } catch (IOException e) {
