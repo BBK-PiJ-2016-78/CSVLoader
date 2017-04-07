@@ -1,4 +1,5 @@
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Launcher {
@@ -16,9 +17,14 @@ public class Launcher {
       creator.selectRows();
       html.writeData(data);
       html.openHTML();
-      conn.close();
     } catch (Exception e) {
       e.printStackTrace();
+    } finally {
+      try {
+        conn.close();
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
     }
   }
 

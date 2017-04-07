@@ -14,7 +14,7 @@ public class ExportHTML {
    * Get the report taken from the monitored connection and write it in HTML file.
    * @param data the data to be written in the html.
    */
-  public void writeData(String data) {
+   void writeData(String data) {
     FileWriter fWriter;
     BufferedWriter writer;
     String startTags = "<html lang=\"en\">\n" + "<head>\n" + "<meta charset=\"UTF-8\">\n"
